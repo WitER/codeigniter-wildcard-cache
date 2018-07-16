@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class MY_Cache
+ *
+ * Extended Cache class for deleting cache by simple wildcards
+ *
+ * @author WitER<dimka.witer@gmail.com>
+ */
 class MY_Cache extends CI_Cache
 {
 
@@ -9,6 +16,11 @@ class MY_Cache extends CI_Cache
     }
 
 
+    /**
+     * Delete cache by key or wildcard
+     * @param string $id
+     * @return int|bool
+     */
     public function delete($id)
     {
         if (strpos($id, '*') !== false) {
@@ -18,6 +30,10 @@ class MY_Cache extends CI_Cache
         return parent::delete($id);
     }
 
+    /**
+     * Get all cache keys
+     * @return array
+     */
     public function getKeys()
     {
         $keys = $this->{$this->_adapter}->getKeys();
@@ -27,6 +43,10 @@ class MY_Cache extends CI_Cache
         return $keys;
     }
 
+    /**
+     * Get all cache keys with meta-data
+     * @return array
+     */
     public function getKeysMeta()
     {
         $result = [];
@@ -36,6 +56,11 @@ class MY_Cache extends CI_Cache
         return $result;
     }
 
+    /**
+     * Delete cache keys by wildcard, example: ->deleteByWildCard('*'), ->deleteByWildCard('my_cache_*')
+     * @param string $id
+     * @return int
+     */
     public function deleteByWildCard($id)
     {
         $deleted = 0;

@@ -4,6 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class MY_Cache_apc extends CI_Cache_apc
 {
+    /**
+     * Get all cache keys
+     * @return array
+     */
     public function getKeys()
     {
         $keys = apc_cache_info('user');
