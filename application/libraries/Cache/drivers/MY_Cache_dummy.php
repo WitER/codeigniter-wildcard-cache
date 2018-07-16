@@ -8,14 +8,4 @@ class MY_Cache_dummy extends CI_Cache_dummy
     {
         return [];
     }
-
-    public function deleteByWildCard($id)
-    {
-        return true;
-    }
-
-    public function getKeysInfo()
-    {
-        return [];
-    }
 }

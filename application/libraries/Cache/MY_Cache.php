@@ -13,7 +13,7 @@ class MY_Cache extends CI_Cache
     {
         if (strpos($id, '*') !== false) {
             $id = str_replace('*', '', $id);
-            return $this->{$this->_adapter}->deleteByWildCard($this->key_prefix . $id);
+            return $this->deleteByWildCard($this->key_prefix . $id);
         }
         return parent::delete($id);
     }
@@ -27,14 +27,27 @@ class MY_Cache extends CI_Cache
         return $keys;
     }
 
-    public function getKeysInfo()
+    public function getKeysMeta()
     {
-        $keys = $this->{$this->_adapter}->getKeysInfo();
-        $tmp = [];
-        foreach ($keys as $key => $info) {
-            $tmp[str_replace($this->key_prefix, '', $key)] = $info;
+        $result = [];
+        foreach ($this->getKeys() as $key) {
+            $result[$key] = $this->get_metadata($key);
         }
-        return $tmp;
+        return $result;
     }
+
+    public function deleteByWildCard($id)
+    {
+        $deleted = 0;
+        foreach ($this->getKeys() as $key) {
+            if (strpos($key, $id) === 0) {
+                $this->delete($key);
+                $deleted++;
+            }
+        }
+        return $deleted;
+    }
+
+
 
 }
