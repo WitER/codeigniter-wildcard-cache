@@ -25,7 +25,7 @@ class MY_Cache extends CI_Cache
     {
         if (strpos($id, '*') !== false) {
             $id = str_replace('*', '', $id);
-            return $this->deleteByWildCard($this->key_prefix . $id);
+            return $this->deleteByWildCard($id);
         }
         return parent::delete($id);
     }
